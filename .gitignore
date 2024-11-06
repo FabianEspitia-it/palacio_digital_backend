@@ -1,0 +1,23 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caching directories
+.cache/
+.dist/
+.venv/
+.vscode/
+
+# Virtual environment
+venv/
+env/
+*.pyc
+*.pyo
+*.pyd
+
+
+
+.env.production
+.env.local
+.env
