@@ -6,16 +6,17 @@ import os
 from email.header import decode_header
 
 
-def get_code_email(user_email: str) -> str:
+def get_code_email(user_email: str, imap_email: str, imap_password: str) -> str:
 
     mail = imaplib.IMAP4_SSL(os.getenv("IMAP_SERVER"), port=993)
 
-    mail.login(os.getenv("DISNEY_EMAIL"), os.getenv("DISNEY_PASSWORD"))
+    mail.login(imap_email, imap_password)
 
     mail.select("inbox")
 
     status, messages = mail.search(
-        None, f'(FROM "{user_email}")')
+        None, f'(FROM "{user_email}" SINCE "01-Nov-2024")'
+    )
 
     if status == "OK":
 
@@ -59,7 +60,7 @@ def get_code_email(user_email: str) -> str:
 
         else:
             status, messages = mail.search(
-                None, '(HEADER From "Disney+")')
+                None, '(HEADER From "Disney+" SINCE "01-Nov-2024")')
 
             counter: int = 0
 
@@ -86,7 +87,7 @@ def get_code_email(user_email: str) -> str:
                                 if to_email != user_email.lower().strip():
                                     counter += 1
 
-                                    if counter == 10:
+                                    if counter == 30:
                                         return None
                                     continue
 
@@ -118,3 +119,18 @@ def get_code_email(user_email: str) -> str:
                                         return code[-1]
 
     mail.close()
+
+
+def call_get_disney_session_code(user_email: str) -> str:
+
+    emails: list[str] = [
+        os.getenv("FIRST_EMAIL"), os.getenv("SECOND_EMAIL"), os.getenv("THIRD_EMAIL")]
+    passwords: list[str] = [
+        os.getenv("FIRST_PASSWORD"), os.getenv("SECOND_PASSWORD"), os.getenv("THIRD_PASSWORD")]
+
+    for email, password in zip(emails, passwords):
+        code = get_code_email(
+            user_email=user_email, imap_email=email, imap_password=password)
+
+        if code:
+            return code

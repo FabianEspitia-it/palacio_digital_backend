@@ -1,6 +1,5 @@
 from fastapi import APIRouter, status, HTTPException
 from fastapi.responses import JSONResponse
-from src.codes.schemas import SessionCodes
 
 from src.codes.crud import *
 
@@ -9,13 +8,10 @@ codes_router = APIRouter()
 
 
 @codes_router.post("/disney/session_code/", tags=["disney_codes"])
-def get_code_email(user_input: SessionCodes) -> JSONResponse:
-
-    if user_input.password != os.getenv("DISNEY_PASSWORD_CODE"):
-        raise HTTPException(status_code=401, detail="Unauthorized")
+def get_code_email(user_email: str) -> JSONResponse:
 
     try:
-        code = get_code_email_by_email(email=user_input.email)
+        code = get_code_email_by_email(email=user_email)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -84,17 +80,3 @@ def get_home_code(email: str) -> JSONResponse:
         raise HTTPException(status_code=400, detail=str(e))
 
     return JSONResponse(content={"link": link}, status_code=status.HTTP_200_OK)
-
-
-@codes_router.post("/netflix/session_code/", tags=["netflix_codes"])
-def get_session_code(user_input: SessionCodes) -> JSONResponse:
-
-    if user_input.password != os.getenv("NETFLIX_PASSWORD_CODE"):
-        raise HTTPException(status_code=401, detail="Unauthorized")
-
-    code = netflix_session_code_by_email(email=user_input.email)
-
-    if not code:
-        raise HTTPException(status_code=404, detail="Code not found")
-
-    return JSONResponse(content={"code": code}, status_code=status.HTTP_200_OK)
