@@ -12,14 +12,6 @@ def get_code_email_by_email(email: str) -> str:
     return call_get_disney_session_code(user_email=email)
 
 
-"""
-def update_password_by_email(info: ChangePasswordSchema) -> None:
-
-    return introduce_credentials(
-        user_email=info.email, new_password=info.new_password)
-"""
-
-
 def get_temporal_access_code_by_email(email: str):
 
     EMAIL_SUBJECT = "Tu código de acceso temporal de Netflix".replace(" ", "")
