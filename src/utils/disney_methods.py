@@ -41,7 +41,7 @@ def get_code_email(user_email: str, imap_email: str, imap_password: str) -> str:
                     new_subject: str = subject.replace(" ", "").replace(
                         "FW:", "").replace("RV:", "").replace("هدایت:", "")
 
-                    if ("Tu código de acceso único para Disney+".replace(" ", "") in new_subject) or ("Your one-time passcode for Disney+".replace(" ", "") in new_subject) or ("Votre code d'accès à usage unique pour Disney+".replace(" ", "") in new_subject) or ("Jednorazowy kod dostępu do Disney+".replace(" ", "") in new_subject) or ("Il tuo codice d'accesso temporaneo per Disney+".replace(" ", "") in new_subject) or ("Din engångskod till Disney+".replace(" ", "")) or ("Seu código de acesso único para o Disney+".replace(" ", "") in new_subject):
+                    if ("Tu código de acceso único para Disney+".replace(" ", "") in new_subject) or ("Your one-time passcode for Disney+".replace(" ", "") in new_subject) or ("Votre code d'accès à usage unique pour Disney+".replace(" ", "") in new_subject) or ("Jednorazowy kod dostępu do Disney+".replace(" ", "") in new_subject) or ("Il tuo codice d'accesso temporaneo per Disney+".replace(" ", "") in new_subject) or ("Din engångskod till Disney+".replace(" ", "") in new_subject) or ("Seu código de acesso único para o Disney+".replace(" ", "") in new_subject) or ("Dein einmaliger Passcode für Disney+".replace(" ", "") in new_subject):
 
                         if email_message.is_multipart():
                             for part in email_message.walk():
@@ -88,7 +88,7 @@ def get_code_email(user_email: str, imap_email: str, imap_password: str) -> str:
                                 new_subject: str = subject.replace(" ", "").replace(
                                     "FW:", "").replace("RV:", "").replace("هدایت:", "")
 
-                                if ("Tu código de acceso único para Disney+".replace(" ", "") in new_subject) or ("Your one-time passcode for Disney+".replace(" ", "") in new_subject) or ("Votre code d'accès à usage unique pour Disney+".replace(" ", "") in new_subject) or ("Jednorazowy kod dostępu do Disney+".replace(" ", "") in new_subject) or ("Il tuo codice d'accesso temporaneo per Disney+".replace(" ", "") in new_subject) or ("Din engångskod till Disney+".replace(" ", "")) or ("Seu código de acesso único para o Disney+".replace(" ", "") in new_subject):
+                                if ("Tu código de acceso único para Disney+".replace(" ", "") in new_subject) or ("Your one-time passcode for Disney+".replace(" ", "") in new_subject) or ("Votre code d'accès à usage unique pour Disney+".replace(" ", "") in new_subject) or ("Jednorazowy kod dostępu do Disney+".replace(" ", "") in new_subject) or ("Il tuo codice d'accesso temporaneo per Disney+".replace(" ", "") in new_subject) or ("Din engångskod till Disney+".replace(" ", "") in new_subject) or ("Seu código de acesso único para o Disney+".replace(" ", "") in new_subject) or ("Dein einmaliger Passcode für Disney+".replace(" ", "") in new_subject):
 
                                     if email_message.is_multipart():
                                         for part in email_message.walk():
