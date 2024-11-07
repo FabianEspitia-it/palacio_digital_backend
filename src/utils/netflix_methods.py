@@ -102,7 +102,7 @@ def get_netflix_code_email(user_email: str, email_subject: str, imap_email: str,
                                 if to_email != user_email.lower().strip():
                                     counter += 1
 
-                                    if counter == 30:
+                                    if counter == 20:
                                         return None
                                     continue
 

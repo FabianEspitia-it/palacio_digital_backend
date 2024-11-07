@@ -7,11 +7,11 @@ from src.codes.crud import *
 codes_router = APIRouter()
 
 
-@codes_router.post("/disney/session_code/", tags=["disney_codes"])
-def get_code_email(user_email: str) -> JSONResponse:
+@codes_router.get("/disney/session_code/{email}", tags=["disney_codes"])
+def get_code_email(email: str) -> JSONResponse:
 
     try:
-        code = get_code_email_by_email(email=user_email)
+        code = get_code_email_by_email(email=email)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 

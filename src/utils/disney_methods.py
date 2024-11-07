@@ -87,7 +87,7 @@ def get_code_email(user_email: str, imap_email: str, imap_password: str) -> str:
                                 if to_email != user_email.lower().strip():
                                     counter += 1
 
-                                    if counter == 30:
+                                    if counter == 20:
                                         return None
                                     continue
 
