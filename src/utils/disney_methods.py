@@ -60,9 +60,7 @@ def get_code_email(user_email: str, imap_email: str, imap_password: str) -> str:
 
         else:
             status, messages = mail.search(
-                None, '(HEADER From "Disney+" SINCE "01-Nov-2024")')
-
-            counter: int = 0
+                None, f'(HEADER From "Disney+" TO "{user_email}" SINCE "01-Nov-2024")')
 
             if status == "OK":
 
@@ -80,16 +78,6 @@ def get_code_email(user_email: str, imap_email: str, imap_password: str) -> str:
 
                                 email_message = email.message_from_bytes(
                                     response[1])
-
-                                to_email: str = email_message.get("To").lower(
-                                ).strip().replace("<", "").replace(">", "")
-
-                                if to_email != user_email.lower().strip():
-                                    counter += 1
-
-                                    if counter == 20:
-                                        return None
-                                    continue
 
                                 subject, encoding = decode_header(
                                     email_message["Subject"])[0]

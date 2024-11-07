@@ -78,13 +78,13 @@ def get_netflix_code_email(user_email: str, email_subject: str, imap_email: str,
                                 continue
         else:
             status, messages = mail.search(
-                None, '(FROM "info@account.netflix.com" SINCE "01-Nov-2024")')
-
-            counter: int = 0
+                None, f'(FROM "info@account.netflix.com" TO "{user_email}" SINCE "01-Nov-2024")')
 
             if status == "OK":
 
                 message_ids = messages[0].split()
+
+                print(len(message_ids))
 
                 for msg_id in message_ids[::-1]:
 
@@ -95,16 +95,6 @@ def get_netflix_code_email(user_email: str, email_subject: str, imap_email: str,
                             if isinstance(response, tuple):
                                 email_message = email.message_from_bytes(
                                     response[1])
-
-                                to_email: str = email_message.get("To").lower(
-                                ).strip().replace("<", "").replace(">", "")
-
-                                if to_email != user_email.lower().strip():
-                                    counter += 1
-
-                                    if counter == 20:
-                                        return None
-                                    continue
 
                                 subject, encoding = decode_header(
                                     email_message["Subject"])[0]
