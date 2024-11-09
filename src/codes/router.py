@@ -1,5 +1,6 @@
 from fastapi import APIRouter, status, HTTPException
 from fastapi.responses import JSONResponse
+from src.codes.schemas import *
 
 from src.codes.crud import *
 
@@ -7,11 +8,14 @@ from src.codes.crud import *
 codes_router = APIRouter()
 
 
-@codes_router.get("/disney/session_code/{email}", tags=["disney_codes"])
-def get_code_email(email: str) -> JSONResponse:
+@codes_router.post("/disney/session_code/", tags=["disney_codes"])
+def get_code_email(user_data: SessionCodes) -> JSONResponse:
+
+    if user_data.password != os.getenv("PLATFORM_PASSWORD"):
+        raise HTTPException(status_code=401, detail="Unauthorized")
 
     try:
-        code = get_code_email_by_email(email=email)
+        code = get_code_email_by_email(email=user_data.email)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
